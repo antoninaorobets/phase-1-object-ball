@@ -192,7 +192,27 @@ function playerWithLongestName(){
 }
 
 
-console.log(playerWithLongestName())
+function fn(max, element ){
+    if (element.steals > max) { 
+        return element.steals
+    }
+    else {
+        return max}
+    
+
+}
+function doesLongNameStealATon() {
+    const playersData = Object.values(players)
+    const biggestSteal = playersData.reduce(fn,0);
+
+    const longestName = playerWithLongestName()
+    return (players[longestName].steals === biggestSteal)
+}
+
+
+console.log(doesLongNameStealATon())
+
+//console.log(playerWithLongestName())
 
 //console.log(winningTeam())
 
