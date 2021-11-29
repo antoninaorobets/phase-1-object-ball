@@ -179,15 +179,28 @@ function winningTeam (){
     }   
 }
 
+function compareTwoNumbers(name, max) { 
+    if (name.length > max) return name.length
+    else return max;
+}
 
+function playerWithLongestName(){
+    const playersNames = Object.keys(players)
+    const longestName = playersNames.reduce( compareTwoNumbers ,0)
+    return longestName
+
+}
+
+
+console.log(playerWithLongestName())
 
 //console.log(winningTeam())
 
 // console.log(playerStats("Alan Anderson"))
 
 
-console.log( playerNumbers ( "Brooklyn Nets"))
-console.log( playerNumbers ( "Charlotte Hornets"))
+// console.log( playerNumbers ( "Brooklyn Nets"))
+// console.log( playerNumbers ( "Charlotte Hornets"))
 
 //console.log(teamNames())
 
