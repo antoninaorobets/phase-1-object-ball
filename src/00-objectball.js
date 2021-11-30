@@ -61,6 +61,10 @@ function gameObject(){
 const homeTeam = gameObject()["home"].players;
 const awayTeam = gameObject()["away"].players;
 const game = gameObject()
+const homeTeamData = Object.values(homeTeam)
+const awayTeamData = Object.values(awayTeam)
+const playersNames = Object.keys(players)
+const playersData = Object.values(players)
 
 const players = Object.assign({},homeTeam, awayTeam)
 console.log(players)
@@ -162,37 +166,46 @@ function sum(player, accumulator) {
     return player.points+accumulator;
 }
 
-
-function winningTeam (){
-    const teamScore = []
-    for (let type in gameObject() ) {
-        let score = 0
-        for (let name in gameObject()[type].players) {
-            score = score + gameObject()[type].players[name].points  
-        }
-        teamScore.push({team: [gameObject()[type].teamName], score :[score]});  
-    }
-    if (teamScore[0].score>teamScore[1].score) {
-        return console.log(teamScore[0].team) }
-        else {
-         return console.log(teamScore[1].team)
-    }   
+function sumData(sum, element){
+   return  sum + element.points;
 }
 
-function compareTwoNumbers(name, max) { 
+function winningTeam (){
+ 
+
+
+    const sumTeam1 = homeTeamData.reduce(sumData,0)
+    const sumTeam2 = awayTeamData.reduce(sumData,0)
+
+
+    switch (true) {
+        case (sumTeam1 > sumTeam2) : return game.home.teamName;
+        case (sumTeam1 < sumTeam2) : return game.away.teamName;
+        default: return console.log("equal")
+    }
+
+
+    // if (teamScore[0].score>teamScore[1].score) {
+    //     return console.log(teamScore[0].team) }
+    //     else {
+    //      return console.log(teamScore[1].team)
+    // }   
+}
+
+function compareTwoNumbers(max, name) { 
     if (name.length > max) return name.length
     else return max;
 }
 
 function playerWithLongestName(){
-    const playersNames = Object.keys(players)
+    
     const longestName = playersNames.reduce( compareTwoNumbers ,0)
     return longestName
 
 }
 
 
-function fn(max, element ){
+function maxSteal(max, element ){
     if (element.steals > max) { 
         return element.steals
     }
@@ -202,19 +215,19 @@ function fn(max, element ){
 
 }
 function doesLongNameStealATon() {
-    const playersData = Object.values(players)
-    const biggestSteal = playersData.reduce(fn,0);
+    
+    const biggestSteal = playersData.reduce(maxSteal,0);
 
     const longestName = playerWithLongestName()
     return (players[longestName].steals === biggestSteal)
 }
 
 
-console.log(doesLongNameStealATon())
+//console.log(doesLongNameStealATon())
 
 //console.log(playerWithLongestName())
 
-//console.log(winningTeam())
+console.log(winningTeam())
 
 // console.log(playerStats("Alan Anderson"))
 
