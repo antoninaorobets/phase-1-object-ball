@@ -1,59 +1,59 @@
-function gameObject(){ 
-    return object = {
-    home: {
-      teamName: "Brooklyn Nets",
-      colors: ["Black", "White"],
-      players: {
-          "Alan Anderson":  { 
-              number : 0,
-              shoe: 16,
-              points: 22,
-              rebounds: 12,
-              assists: 12,
-              steals: 3,
-              blocks: 1,
-              slamDunks: 1,
-               },
-          "Reggie Evans": {
-              number: 30,
-              shoe: 14,
-              points: 12,
-              rebounds: 12,
-              assists: 12,
-              steals: 12,
-              blocks: 12,
-              slamDunks: 7,
-              },
-      }   
-    },
-      away: {
-        teamName: "Charlotte Hornets",
-        colors: ["Turquoise", "Purple"],
-        players: {
-          "Jeff Adrien": {
-                number : 4,
-                shoe: 18,
-                points: 10,
-                rebounds: 1,
-                assists: 1,
-                steals: 2,
-                blocks: 7,
-                slamDunks: 2,
+function gameObject() {
+    return {
+        home: {
+            teamName: "Brooklyn Nets",
+            colors: ["Black", "White"],
+            players: {
+                "Alan Anderson": {
+                    number: 0,
+                    shoe: 16,
+                    points: 22,
+                    rebounds: 12,
+                    assists: 12,
+                    steals: 3,
+                    blocks: 1,
+                    slamDunks: 1,
                 },
-  
-  
-         "Bismak Biyombo" :{
-                number : 0,
-                shoe: 16,
-                points: 12,
-                rebounds: 4,
-                assists: 7,
-                steals: 7,
-                blocks: 15,
-                slamDunks: 10,
+                "Reggie Evans": {
+                    number: 30,
+                    shoe: 14,
+                    points: 12,
+                    rebounds: 12,
+                    assists: 12,
+                    steals: 12,
+                    blocks: 12,
+                    slamDunks: 7,
                 },
-  
-          }	
+            }
+        },
+        away: {
+            teamName: "Charlotte Hornets",
+            colors: ["Turquoise", "Purple"],
+            players: {
+                "Jeff Adrien": {
+                    number: 4,
+                    shoe: 18,
+                    points: 10,
+                    rebounds: 1,
+                    assists: 1,
+                    steals: 2,
+                    blocks: 7,
+                    slamDunks: 2,
+                },
+
+
+                "Bismak Biyombo": {
+                    number: 0,
+                    shoe: 16,
+                    points: 12,
+                    rebounds: 4,
+                    assists: 7,
+                    steals: 7,
+                    blocks: 15,
+                    slamDunks: 10,
+                },
+
+            }
         }
     }
 }
@@ -61,29 +61,30 @@ function gameObject(){
 const homeTeam = gameObject()["home"].players;
 const awayTeam = gameObject()["away"].players;
 const game = gameObject()
+const players = Object.assign({}, homeTeam, awayTeam)
+console.log(players)
 const homeTeamData = Object.values(homeTeam)
 const awayTeamData = Object.values(awayTeam)
 const playersNames = Object.keys(players)
 const playersData = Object.values(players)
 
-const players = Object.assign({},homeTeam, awayTeam)
-console.log(players)
+
 
 
 
 function playerType(name) {
-    if (gameObject()["home"].players[name]) {return "home";}
-    else if (gameObject()["away"].players[name]) {return "away";};
+    if (gameObject()["home"].players[name]) { return "home"; }
+    else if (gameObject()["away"].players[name]) { return "away"; };
 }
 
 function numPointsScored(name) {
     const type = playerType(name);
-    return gameObject()[type].players[name].points; 
+    return gameObject()[type].players[name].points;
 }
 
 
 function shoeSize(name) {
-    return gameObject()[playerType(name)].players[name].shoe; 
+    return gameObject()[playerType(name)].players[name].shoe;
 }
 
 
@@ -97,25 +98,17 @@ function teamNames() {
 }
 
 
-function ifHome(team) {
-    if (gameObject()["home"].teamName ===team ) return "home";
-    else 
-       if (gameObject()["away"].teamName ===team ) return "away";
-    
-}
-function playerNumbers(team) {
-    const numbers = []
-    const playersTeam = game[ifHome(team)].players
-    
-    for (let name in playersTeam) {
-        numbers.push(playersTeam[name].number)
-    }
-    return numbers;
-    
+function playerNumbers(teamName) {
+    const playersTeam = Object.values(game)
+        .find((team) => team.teamName === teamName)
+        .players
+
+    return Object.values(playersTeam)
+        .map((playerData) => playerData.number)
 }
 
 
-function playerStats(name){
+function playerStats(name) {
     playerType(name)
     return gameObject()[playerType(name)].players[name];
 }
@@ -124,16 +117,15 @@ function playerStats(name){
 
 function bigShoeRebounds() {
     const sizeArray = []
-    for (let type in gameObject() )
+    for (let type in gameObject())
         for (let name in gameObject()[type].players) {
             console.log(name)
-            console.log("size=",gameObject()[type].players[name].shoe)
+            console.log("size=", gameObject()[type].players[name].shoe)
             sizeArray.push(gameObject()[type].players[name].shoe)
-        
         };
     const maxSize = Math.max(...sizeArray);
     debugger;
-    for (let type in gameObject() )
+    for (let type in gameObject())
         for (let name in gameObject()[type].players) {
             if (gameObject()[type].players[name].shoe === maxSize) {
                 let reb = gameObject()[type].players[name].rebounds
@@ -143,81 +135,64 @@ function bigShoeRebounds() {
         }
 }
 
-function mostPointsScored () {
-    const pointsArray = []
-    for (let type in gameObject() )
-        for (let name in gameObject()[type].players) {
-            console.log(name)
-            console.log("size=",gameObject()[type].players[name].points)
-            pointsArray.push(gameObject()[type].players[name].points)
-        
-        };
-    const maxPoints = Math.max(...pointsArray);
-    console.log(pointsArray)
-    for (let type in gameObject() )
-        for (let name in gameObject()[type].players) {
-            if (gameObject()[type].players[name].points === maxPoints) {
-                return name;
+function maxPoints(max, arr) {
+    return Math.max(max, arr[1].points)
+}
+
+function getElementWithMaxPoints(element) {
+    return (element.points === maxPoint);
+}
+function mostPointsScored() {
+    return Object.entries(players)
+        .reduce((player1, player2) => {
+            if (player1[1].points > player2[1].points) {
+                return player1;
+            } else {
+                return player2;
             }
-        }
+        })[0];
 }
 
 function sum(player, accumulator) {
-    return player.points+accumulator;
+    return player.points + accumulator;
 }
 
-function sumData(sum, element){
-   return  sum + element.points;
+function sumData(sum, element) {
+    return sum + element.points;
 }
 
-function winningTeam (){
- 
-
-
-    const sumTeam1 = homeTeamData.reduce(sumData,0)
-    const sumTeam2 = awayTeamData.reduce(sumData,0)
-
-
+function winningTeam() {
+    const sumTeam1 = homeTeamData.reduce(sumData, 0)
+    const sumTeam2 = awayTeamData.reduce(sumData, 0)
     switch (true) {
-        case (sumTeam1 > sumTeam2) : return game.home.teamName;
-        case (sumTeam1 < sumTeam2) : return game.away.teamName;
+        case (sumTeam1 > sumTeam2): return game.home.teamName;
+        case (sumTeam1 < sumTeam2): return game.away.teamName;
         default: return console.log("equal")
     }
-
-
-    // if (teamScore[0].score>teamScore[1].score) {
-    //     return console.log(teamScore[0].team) }
-    //     else {
-    //      return console.log(teamScore[1].team)
-    // }   
 }
 
-function compareTwoNumbers(max, name) { 
+function compareTwoNumbers(max, name) {
     if (name.length > max) return name.length
     else return max;
 }
 
-function playerWithLongestName(){
-    
-    const longestName = playersNames.reduce( compareTwoNumbers ,0)
-    return longestName
-
+function playerWithLongestName() {
+    return playersNames.reduce(compareTwoNumbers, 0)
 }
 
 
-function maxSteal(max, element ){
-    if (element.steals > max) { 
+function maxSteal(max, element) {
+    if (element.steals > max) {
         return element.steals
     }
     else {
-        return max}
-    
+        return max
+    }
+
 
 }
 function doesLongNameStealATon() {
-    
-    const biggestSteal = playersData.reduce(maxSteal,0);
-
+    const biggestSteal = playersData.reduce(maxSteal, 0);
     const longestName = playerWithLongestName()
     return (players[longestName].steals === biggestSteal)
 }
@@ -227,13 +202,13 @@ function doesLongNameStealATon() {
 
 //console.log(playerWithLongestName())
 
-console.log(winningTeam())
+//console.log(winningTeam())
 
 // console.log(playerStats("Alan Anderson"))
+console.log(mostPointsScored())
 
-
-// console.log( playerNumbers ( "Brooklyn Nets"))
-// console.log( playerNumbers ( "Charlotte Hornets"))
+console.log( playerNumbers ( "Brooklyn Nets"))
+ console.log( playerNumbers ( "Charlotte Hornets"))
 
 //console.log(teamNames())
 
