@@ -113,26 +113,23 @@ function playerStats(name) {
     return gameObject()[playerType(name)].players[name];
 }
 
-
+function compareShueSize(playerData1, playerData2) {
+        switch (true){
+            case playerData1.shoe > playerData2.shoe:  return playerData1;
+            case playerData1.shoe < playerData2.shoe:  return playerData2;
+        }
+    return 
+}
 
 function bigShoeRebounds() {
-    const sizeArray = []
-    for (let type in gameObject())
-        for (let name in gameObject()[type].players) {
-            console.log(name)
-            console.log("size=", gameObject()[type].players[name].shoe)
-            sizeArray.push(gameObject()[type].players[name].shoe)
-        };
-    const maxSize = Math.max(...sizeArray);
-    debugger;
-    for (let type in gameObject())
-        for (let name in gameObject()[type].players) {
-            if (gameObject()[type].players[name].shoe === maxSize) {
-                let reb = gameObject()[type].players[name].rebounds
-                debugger
-                return reb;
-            }
-        }
+  
+
+
+    const a=    Object.values(players).reduce(compareShueSize).rebounds
+
+debugger;
+    return 1;
+
 }
 
 function maxPoints(max, arr) {
@@ -198,6 +195,9 @@ function doesLongNameStealATon() {
 }
 
 
+
+console.log("bigShoeRebounds = ",bigShoeRebounds())
+
 //console.log(doesLongNameStealATon())
 
 //console.log(playerWithLongestName())
@@ -205,10 +205,10 @@ function doesLongNameStealATon() {
 //console.log(winningTeam())
 
 // console.log(playerStats("Alan Anderson"))
-console.log(mostPointsScored())
+// console.log(mostPointsScored())
 
-console.log( playerNumbers ( "Brooklyn Nets"))
- console.log( playerNumbers ( "Charlotte Hornets"))
+// console.log( playerNumbers ( "Brooklyn Nets"))
+//  console.log( playerNumbers ( "Charlotte Hornets"))
 
 //console.log(teamNames())
 
